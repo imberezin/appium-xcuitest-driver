@@ -15,7 +15,7 @@ import path from 'path';
 chai.should();
 chai.use(chaiAsPromised);
 
-const SCREENSHOT_DIR = path.resolve(__dirname, '..', '..', '..', '..');
+const SCREENSHOT_DIR = path.resolve(__dirname, '..', '..', '..', '..', 'screenshots');
 
 const caps = _.defaults({
   safariInitialUrl: GUINEA_PIG_PAGE,
