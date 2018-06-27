@@ -9,10 +9,13 @@ import { killAllSimulators } from '../helpers/simulator';
 import { retryInterval } from 'asyncbox';
 import wd from 'wd';
 import B from 'bluebird';
+import path from 'path';
 
 
 chai.should();
 chai.use(chaiAsPromised);
+
+const SCREENSHOT_DIR = path.resolve(__dirname, '..', '..', '..', '..');
 
 const caps = _.defaults({
   safariInitialUrl: GUINEA_PIG_PAGE,
@@ -141,6 +144,8 @@ describe('Safari', function () {
           await driver.get(GUINEA_PIG_SCROLLABLE_PAGE);
           await driver.execute('mobile: scroll', {direction: 'down'});
 
+          await driver.saveScreenshot(path.resolve(SCREENSHOT_DIR, `screenshot-before-${deviceName}-${caps.platformVersion}.png`));
+
           // to get the url bar, click at the top
           const ctx = await driver.currentContext();
           try {
@@ -157,6 +162,8 @@ describe('Safari', function () {
           } finally {
             await driver.context(ctx);
           }
+
+          await driver.saveScreenshot(path.resolve(SCREENSHOT_DIR, `screenshot-after-${deviceName}-${caps.platformVersion}.png`));
 
           const el = await driver.elementByLinkText('i am a link to page 3');
           await el.click();
