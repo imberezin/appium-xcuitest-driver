@@ -53,3 +53,5 @@ script:
       npm install -g appium-event-parser;
       appium-event-parser -s -i ./ci-metrics;
     fi
+after_success:
+  - git ls-files -o
